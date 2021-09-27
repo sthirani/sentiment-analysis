@@ -2,13 +2,11 @@
 
 _Analyze sentiment of a specific brand using twitter data_
 
-### Install python and jupyterlab
+### Install python and pycharm
 
 - https://www.python.org/downloads/
+- https://www.jetbrains.com/pycharm/download/
 
-- sudo -H python -m ensurepip
-
-- pip install jupyterlab
 
 ### Git commands to clone the project
 
@@ -56,22 +54,34 @@ import nltk
 dataset = load_dataset("trump_tweets.csv", ['target','text']) ```
 ````
 
-- pre-process data
+- pre-process data by removing `#`, `@`,`/,.$"\` etc
 
 ````
     tweet = re.sub(r'\@\w+|\#','', tweet)
     # Remove punctuations
     tweet = tweet.translate(str.maketrans('', '', string.punctuation))
     # Remove stopwords
-    tweet_tokens = word_tokenize(tweet) ```
+    tweet_tokens = word_tokenize(tweet) 
+````
+- visualize the twitter data using `Wordcloud`
+```
+ wordcloud = WordCloud(width = 800, height = 800,
+                          background_color ='white',
+                          stopwords = stopwords,
+                          min_font_size = 10).generate(words)
+
+```
+- analyze data to determine sentiment using `VADER`
+
+````
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+analyzer = SentimentIntensityAnalyzer()
 ````
 
-- train data
-
-````
-X_train, X_test, y_train, y_test = train_test_split(X, Y , test_size=0.2, random_state=30)
-NB_model = MultinomialNB()
-NB_model.fit(X_train, y_train) ```
-````
-
-- use trained model to analyze new dataset
+- Example results on wordcloud and the overall sentiment is attached
+- Tips & Tricks
+    - Can save data in file
+    ````
+  np.savetxt("ans.csv", y_test, delimiter=',', fmt='%s') 
+    ````
+    - run DisableSSL.py to download nltk modules if necessary
