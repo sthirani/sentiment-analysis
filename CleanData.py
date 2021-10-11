@@ -10,23 +10,15 @@ import string
 import nltk
 from nltk.corpus import stopwords
 from nltk import word_tokenize, pos_tag
-from nltk.stem import PorterStemmer
-from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from textblob import TextBlob
-import nltk
-# nltk.download('punkt')
-# nltk.download('stopwords')
-# nltk.download('wordnet')
-
 
 # Global Parameters
 
 meaningful_words = set(nltk.corpus.words.words())
-remove_tagged_words =['NN', 'VB','PRP','RP','WDT','IN','DT','PDT','PRP$','WP','CD','CC','SYM']
+remove_tagged_words = ['NN', 'VB', 'PRP', 'RP', 'WDT', 'IN', 'DT', 'PDT', 'PRP$', 'WP', 'CD', 'CC', 'SYM']
 additional = ['rt', 'rts', 'retweet', "b'RT", 'b']
 stop_words = set().union(stopwords.words('english'), additional)
-comment_words = ''
 stopwords = set(STOPWORDS)
 
 
@@ -37,18 +29,19 @@ def import_dataset(filename, cols):
 
 
 def plot_wordcloud(words):
-    wordcloud = WordCloud(width = 800, height = 800,
-                          background_color ='white',
-                          stopwords = stopwords,
-                          min_font_size = 10).generate(words)
+    wordcloud = WordCloud(width=800, height=800,
+                          background_color='white',
+                          stopwords=stopwords,
+                          min_font_size=10).generate(words)
 
     # plot the WordCloud image
-    plt.figure(figsize = (8, 8), facecolor = None)
+    plt.figure(figsize=(8, 8), facecolor=None)
     plt.imshow(wordcloud)
     plt.axis("off")
-    plt.tight_layout(pad = 0)
+    plt.tight_layout(pad=0)
 
     plt.show()
+
 
 def preprocess_tweet_text(tweet):
     tweet.lower()
@@ -75,19 +68,12 @@ def preprocess_tweet_text(tweet):
     tweet_tokens = word_tokenize(tweet)
     tagged_tweets = pos_tag(tokens)
     # remove nouns pronouns determiners, prepositions etc
-    useful_tweets = [w for (w,y) in tagged_tweets if y not in remove_tagged_words]
+    useful_tweets = [w for (w, y) in tagged_tweets if y not in remove_tagged_words]
     # Remove empty List from List
     non_empty_tweets = [w for w in useful_tweets if w != []]
     # Remove stop_words
     filtered_words = [w for w in non_empty_tweets if w not in stop_words]
-
-    # #  Eliminating affixes by using stemmer
-    # ps = PorterStemmer()
-    # stemmed_words = [ps.stem(w) for w in filtered_words]
-    # # converting to vocab form
-    # lemmatize = WordNetLemmatizer()
-    # lemma_words = [lemmatize.lemmatize(w, pos='a') for w in stemmed_words]
-    return " ".join(filtered_words)+" "
+    return " ".join(filtered_words) + " "
 
 
 def add_label(tweet):
@@ -114,7 +100,7 @@ def get_feature_vector(train_fit):
 
 def clean_dataset(comment_words=''):
     dataset = import_dataset("/Users/thirani/Projects/Sentiment Analysis/addidas_tweets.csv",
-                         ['target', 'text'])
+                             ['target', 'text'])
 
     dataset.text = dataset["text"].apply(preprocess_tweet_text)
     for w in dataset.text:
@@ -122,20 +108,9 @@ def clean_dataset(comment_words=''):
     plot_wordcloud(comment_words)
 
     save_array = np.array(dataset['text'])
-# dataset.text = dataset["text"].apply(preprocess_tweet_text)
 
-
-#     dataset['sentiment'] = dataset['text'].apply(add_label)
-#
-#     y = np.array(dataset['text'])
-    np.savetxt("/Users/thirani/Projects/Sentiment Analysis/clean_sentences_addidas.csv", save_array, delimiter=',', fmt='%s')
-#
-#     dataset.sentiment = dataset['sentiment'].apply(polarity_label)
-#     # print(dataset['text'])
-#     # print(dataset['sentiment'])
-#     return dataset
-#
-#
+    np.savetxt("/Users/thirani/Projects/Sentiment Analysis/clean_sentences_nike.csv", save_array, delimiter=',',
+               fmt='%s')
 
 
 if __name__ == "__main__":

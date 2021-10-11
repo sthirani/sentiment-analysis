@@ -1,15 +1,53 @@
-# sentiment-analysis
+# Sentiment Analysis
+Analyze sentiment of a specific brand using twitter data. 
+## Contents
 
-_Analyze sentiment of a specific brand using twitter data_
+- [Project Objective](#project-objective)
+- [Prerequisites](#prerequisites)
+- [Git commands](#git-commands)
+- [Project steps](#project-steps)
 
-### Install python and pycharm
+
+
+## Project Objective
+
+The basic goal is to find sentiment of a text data. The given text is from tweets obtained from Twitter from  a specific brand(Nike, addidas, starbucks etc). The task is to identify if the tweets have a Negative, Positive, or Neutral sentiment towards the brand.
+
+- Sentiment Analysis : Sentiment Analyis is the process of collecting and analyzing data based upon personal feelings, reviews and thoughts.
+It is done by using various machine learning techniques, statistical models and Natural Language Processing(NLP) for extraction of a feature from a large data. 
+
+- NLTK : Natural Language Toolkit(NLTK) is a library in python, containing resources for python that can be used for text processing, tagging, tokenizing. It transforms text in tweets into a format that can be used to extract sentiment.
+
+- WordCloud - Word Cloud is a popular visualisation tool that is used to visualise textual data. The words are sized according their frequency of occurrence in a bag of words and arranged in random order. Word Cloud gives a quick and dirty insight about what’s inside a bag of texts.
+
+
+## Prerequisites
+
+#### Install python, pycharm, git
 
 - https://www.python.org/downloads/
 - https://www.jetbrains.com/pycharm/download/
+- For windows : https://git-scm.com/download/win
 
+ Note: Step by step tutorial for windows to get till `git cli` https://phoenixnap.com/kb/how-to-install-git-windows
+- For Mac : https://git-scm.com/download/mac
 
-### Git commands to clone the project
+Note- If brew is not in mac, must install brew first https://treehouse.github.io/installation-guides/mac/homebrew
 
+#### Sign up to create Github account
+
+https://github.com/join
+
+![](Git_Signup.png)
+## Git commands 
+### Get access to github 
+#### Run these commands to get access
+- git config --global user.name "github_username"
+- git config --global user.email "email_address"
+
+For Mac: run in terminal, For Windows: run in git bash
+
+#### Run the command to clone the project
 - git clone git@github.com:sthirani/sentiment-analysis.git
 
 ## Project steps
